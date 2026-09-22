@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>File Uploader</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <%- include("partials/navbar", { isGuest: !currentUser }) %>
+    <% if(currentUser) {%>
+        <div>Testing</div>
+        <a href="/log-out">Log Out</a>
+    <%} else {%>
+        <div>Login</div>
+        <form id="index-form" action="/log-in" method="post">
+            <div>
+                <label for="email">Email</label>
+                <input type="text" name="email">
+            </div>
+            <div>
+                <label for="password">Password</label>
+                <input type="password" name="password">
+            </div>
+            <button type="submit">Log In</button>
+        </form>
+        <a href="/sign-up">No account? Sign up</a>
+    <% } %>
+</body>
+</html>

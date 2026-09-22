@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Files</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="https://kit.fontawesome.com/5c30b5e5d4.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <%- include("partials/navbar", { isGuest: !currentUser }) %>
+
+    <div id="files-content-container">
+        <h1>Files</h1>
+        <p>Upload and manage your files</p>
+    
+        <div id="files-container">
+            <section id="files-create">
+                <h2>New Folder</h2>
+                <p>Create a new folder</p>
+                <form action="/files/new" method="post">
+                    <label for="folder-name">Folder Name</label>
+                    <input type="text" name="folderName" id="folder-name" placeholder="folder name">
+                    <button type="submit">Create Folder</button>
+                </form>
+            </section>
+            <section id="files-manage">
+                <h2>Your files</h2>
+                <p>View and manage your files</p>
+                    <div id="files-manage-container">
+                    <% files.forEach(element => { %>
+                        <div class="files-item">
+                            <div><i class="fa-regular fa-folder-closed fa-xl"></i></div>
+                            <div class="files-element-name"><%= element.name %></div>
+                        </div>                  
+                    <% }) %>
+                    </div>
+            </section>
+        </div>
+    </div>
+
+</body>
+</html>

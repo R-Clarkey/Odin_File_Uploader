@@ -1,0 +1,19 @@
+<% if (isGuest) { %>
+  <nav id="navbar">
+    <div id="navbar-logo">The Photo Vault</div>
+    <div id="navbar-actions">
+      <a href="/sign-up">Sign Up</a>
+    </div>
+  </nav>
+<% } else { %>
+  <nav id="navbar">
+    <div id="navbar-logo">The Photo Vault</div>
+    <ul id="navbar-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/folders">Folders</a></li>
+    </ul>
+    <div id="navbar-actions">
+      <a href="/log-out">Log Out</a>
+    </div>
+  </nav>
+<% } %>
