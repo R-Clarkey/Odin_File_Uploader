@@ -1,28 +1,22 @@
-import { prisma } from "../db/prisma.js"
-import crypto from "node:crypto"
-
+import { prisma } from "../db/prisma.js";
+import crypto from "node:crypto";
+import { supabase } from "../config/supabase.js";
 
 async function getFolder(folderId) {
   const folder = await prisma.folder.findFirst({
-    where: {
-      id: folderId,
-    },
-    include: {
-      files: true,
-    },
+    where: { id: folderId },
+    include: { files: true },
   });
 
-  return folder
+  return folder;
 }
 
 async function getFolders(userId) {
   const folders = await prisma.folder.findMany({
-    where: {
-      userId,
-    },
+    where: { userId },
   });
 
-  return folders
+  return folders;
 }
 
 async function createFolder(data) {
@@ -31,7 +25,7 @@ async function createFolder(data) {
       name: data.folderName,
       userId: data.userId,
     },
-  })
+  });
 }
 
 async function createFile(data) {
@@ -41,35 +35,32 @@ async function createFile(data) {
       mimeType: data.mimeType,
       storageKey: data.storageKey,
       size: data.size,
-      folderId: data.folderId
-    }
-  })
+      folderId: data.folderId,
+    },
+  });
 }
 
 async function shareFolder(folderId) {
-  const token = crypto.randomUUID()
+  const token = crypto.randomUUID();
   const share = await prisma.share.create({
     data: {
       token,
       folderId,
       expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
     },
-  })
-  return share
+  });
+  return share;
 }
 
-  
 async function getSharedFolderByToken(token) {
   return prisma.share.findUnique({
     where: { token },
     include: {
       folder: {
-        include: {
-          files: true,
-        },
+        include: { files: true },
       },
     },
-  })
+  });
 }
 
 export {
@@ -78,5 +69,5 @@ export {
   getFolder,
   createFile,
   shareFolder,
-  getSharedFolderByToken
-}
+  getSharedFolderByToken,
+};

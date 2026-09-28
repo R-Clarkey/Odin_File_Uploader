@@ -1,43 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Folders</title>
-    <link rel="stylesheet" href="/styles.css">
-    <script src="https://kit.fontawesome.com/5c30b5e5d4.js" crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Folders</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script
+    src="https://kit.fontawesome.com/5c30b5e5d4.js"
+    crossorigin="anonymous"
+  ></script>
 </head>
+
 <body>
-    <%- include("partials/navbar", { isGuest: !currentUser }) %>
+  <%- include("partials/navbar", { isGuest: !currentUser }) %>
 
-    <div id="folders-content-container">
-        <h1>Folders</h1>
-        <p>Create and manage your folders</p>
-    
-        <div id="folders-container">
-            <section id="folders-create">
-                <h2>New Folder</h2>
-                <p>Create a new folder</p>
-                <form action="/folders/new" method="post">
-                    <label for="folder-name">Folder Name</label>
-                    <input type="text" name="folderName" id="folder-name" placeholder="folder name">
-                    <button type="submit">Create Folder</button>
-                </form>
-            </section>
-            <section id="folders-manage">
-                <h2>Your Folders</h2>
-                <p>View and manage your folders</p>
-                    <div id="folders-manage-container">
-                    <% folders.forEach(element => { %>
-                        <div class="folders-item">
-                            <div><i class="fa-regular fa-folder-closed fa-xl"></i></div>
-                            <div class="folders-element-name"><a href="/folders/<%- element.id %>"><%= element.name %></a></div>
-                        </div>                  
-                    <% }) %>
-                    </div>
-            </section>
+  <main id="folders-content-container">
+    <h1>Folders</h1>
+    <p>Create and manage your folders</p>
+
+    <div id="folders-container">
+      <section id="folders-create">
+        <h2>New Folder</h2>
+        <p>Create a new folder</p>
+
+        <form action="/folders/new" method="post">
+          <label for="folder-name">Folder Name</label>
+
+          <input
+            type="text"
+            name="folderName"
+            id="folder-name"
+            placeholder="Enter a folder name"
+            required
+          >
+
+          <button type="submit">Create Folder</button>
+        </form>
+      </section>
+
+      <section id="folders-manage">
+        <h2>Your Folders</h2>
+        <p>View and manage your folders</p>
+
+        <div id="folders-manage-container">
+          <% if (folders && folders.length > 0) { %>
+            <% folders.forEach((folder) => { %>
+              <a
+                class="folders-item"
+                href="/folders/<%= folder.id %>"
+              >
+                <div class="folder-icon">
+                  <i class="fa-regular fa-folder-closed"></i>
+                </div>
+
+                <div class="folders-element-name">
+                  <span><%= folder.name %></span>
+                </div>
+
+                <div class="folder-arrow">
+                  <i class="fa-solid fa-arrow-right"></i>
+                </div>
+              </a>
+            <% }) %>
+          <% } else { %>
+            <p class="folders-empty-state">
+              You have not created any folders yet.
+            </p>
+          <% } %>
         </div>
+      </section>
     </div>
-
+  </main>
 </body>
 </html>

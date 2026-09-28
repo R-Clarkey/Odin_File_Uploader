@@ -1,30 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>File Uploader</title>
-    <link rel="stylesheet" href="/styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>File Uploader</title>
+  <link rel="stylesheet" href="/styles.css">
 </head>
+
 <body>
-    <%- include("partials/navbar", { isGuest: !currentUser }) %>
-    <% if(currentUser) {%>
-        <div>Testing</div>
-        <a href="/log-out">Log Out</a>
-    <%} else {%>
-        <div>Login</div>
-        <form id="index-form" action="/log-in" method="post">
-            <div>
-                <label for="email">Email</label>
-                <input type="text" name="email">
+  <%- include("partials/navbar", { isGuest: !currentUser }) %>
+
+  <main id="home-page">
+    <section class="hero-section">
+      <div class="hero-content">
+        <p class="hero-label">Simple photo storage</p>
+
+        <h1>Upload, organize, and share your photos.</h1>
+
+        <p class="hero-description">
+          Keep your favorite photos in one place. Create folders, upload files,
+          and access your memories whenever you need them.
+        </p>
+
+        <div class="hero-actions">
+          <% if (currentUser) { %>
+            <a href="/folders" class="primary-link">View my folders</a>
+            <a href="/log-out" class="secondary-link">Log out</a>
+          <% } else { %>
+            <a href="/sign-up" class="primary-link">Get started</a>
+            <a href="#login" class="secondary-link">Log in</a>
+          <% } %>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="hero-card-icon">📸</div>
+        <h2>Your photos, organized</h2>
+        <p>
+          Upload images to dedicated folders and keep everything easy to find.
+        </p>
+
+        <div class="photo-preview">
+          <div class="photo-preview-item photo-preview-one">🌄</div>
+          <div class="photo-preview-item photo-preview-two">🌊</div>
+          <div class="photo-preview-item photo-preview-three">🌅</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features-section">
+      <div class="feature-card">
+        <div class="feature-icon">⬆️</div>
+        <h3>Upload photos</h3>
+        <p>
+          Add your photos quickly from any device and keep them safely together.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📁</div>
+        <h3>Use folders</h3>
+        <p>
+          Organize trips, events, projects, and personal memories with folders.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🔗</div>
+        <h3>Share easily</h3>
+        <p>
+          Share your folders with others whenever you want them to see your
+          photos.
+        </p>
+      </div>
+    </section>
+
+    <% if (!currentUser) { %>
+      <section id="login" class="login-section">
+        <div class="login-card">
+          <h2>Welcome back</h2>
+          <p>Log in to access your uploaded photos and folders.</p>
+
+          <form id="index-form" action="/log-in" method="post">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                id="email"
+                type="email"
+                name="email"
+                placeholder="you@example.com"
+                required
+              >
             </div>
-            <div>
-                <label for="password">Password</label>
-                <input type="password" name="password">
+
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input
+                id="password"
+                type="password"
+                name="password"
+                placeholder="Enter your password"
+                required
+              >
             </div>
-            <button type="submit">Log In</button>
-        </form>
-        <a href="/sign-up">No account? Sign up</a>
+
+            <button type="submit">Log in</button>
+          </form>
+
+          <p class="signup-text">
+            Don't have an account?
+            <a href="/sign-up">Create one</a>
+          </p>
+        </div>
+      </section>
     <% } %>
+  </main>
 </body>
 </html>

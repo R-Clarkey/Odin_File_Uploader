@@ -14,6 +14,7 @@ import indexRouter from "./routes/indexRouter.js"
 import authRouter from "./routes/authRouter.js"
 import folderRouter from "./routes/folderRouter.js"
 import shareRouter from "./routes/shareRouter.js" 
+import fileRouter from "./routes/fileRouter.js"
 
 if (process.env.NODE_ENV !== "production") {
   dotenv.config()
@@ -64,5 +65,6 @@ app.use("/", indexRouter)
 app.use("/", authRouter)
 app.use("/folders", folderRouter)
 app.use("/share", shareRouter)
+app.use("/uploads", fileRouter)
 
 export default app

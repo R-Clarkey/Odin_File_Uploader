@@ -1,14 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Share</title>
-    <link rel="stylesheet" href="/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Share</title>
+  <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <%- include("partials/navbar", { isGuest: !currentUser }) %>
-    <h1>Share</h1>
-    <%= console.log(folder.files) %>
+  <%- include("partials/navbar", { isGuest: !currentUser }) %>
+
+  <main id="share-content-container">
+    <h1>Shared files</h1>
+
+    <% if (folder.files && folder.files.length > 0) { %>
+      <h2>Files</h2>
+
+      <div class="file-grid">
+        <% folder.files.forEach((file) => { %>
+          <article class="file-card">
+            <a
+              href="/uploads/<%= file.storageKey %>"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="/uploads/<%= file.storageKey %>"
+                alt="<%= file.name %>"
+              >
+            </a>
+
+            <div class="file-card__body">
+              <p><%= file.name %></p>
+
+              <% if (file.size) { %>
+                <small>
+                  (<%= (file.size / 1024).toFixed(1) %> KB)
+                </small>
+              <% } %>
+            </div>
+          </article>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <p class="empty-state">No files uploaded yet.</p>
+    <% } %>
+  </main>
 </body>
 </html>
